@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slot Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+        }
+        .card {
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-center mb-4">📅 Slot Booking System</h2>
+
+        <div class="text-end mb-3">
+            <a href="/booked" class="btn btn-dark">View Booked Slots</a>
+        </div>
+
+        <table class="table table-hover text-center align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for slot in slots %}
+            <tr>
+
+                <td class="fw-bold">{{ slot.slot_time }}</td>
+
+                {% if slot.is_booked %}
+                    <td>
+                        <span class="badge bg-danger">
+                            Booked by {{ slot.booked_by }}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" disabled>Not Available</button>
+                    </td>
+                {% else %}
+                    <td>
+                        <span class="badge bg-success">Available</span>
+                    </td>
+                    <td>
+                        <a href="/book/{{ slot.id }}" class="btn btn-primary btn-sm">
+                            Book Now
+                        </a>
+                    </td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>
